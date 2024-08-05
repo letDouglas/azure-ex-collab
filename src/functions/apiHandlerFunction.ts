@@ -1,6 +1,15 @@
 import { HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions';
 import { fetchPokemonData1, fetchPokemonData2, fetchPokemonData3 } from './../services/pokemonService'; 
 
+/**
+ * Handler per la funzione API che gestisce le richieste HTTP.
+ * Effettua chiamate a tre API per ottenere dati sui Pokémon, filtra e restituisce i risultati.
+ * 
+ * @param {HttpRequest} request - Oggetto della richiesta HTTP.
+ * @param {InvocationContext} context - Contesto di invocazione della funzione.
+ * @returns {Promise<HttpResponseInit>} - Oggetto della risposta HTTP.
+ */
+
 export async function apiHandlerFunction(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     const startTime = Date.now();  
     context.log('Elaborazione della richiesta');

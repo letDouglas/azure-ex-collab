@@ -1,6 +1,8 @@
 import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
 import * as https from 'https';
 
+
+// FIXME: esiste già fetch() nativa in nodejs. Eliminare qualsiasi riferimento a https e usare la modalità vista con Luca.
 async function fetch(url: string): Promise<string> {
     return new Promise((resolve, reject) => {
         https.get(url, (response) => {
@@ -19,8 +21,11 @@ async function fetch(url: string): Promise<string> {
     });
 }
 
+
+//FIXME: rinominare non "caller" ma è un handler
 export async function apiCallerFunction(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
     context.log('Elaborazione della richiesta');
+    //FIXME: Mancano i tempi di esecuzione da visualizzare in context.log
 
     const urls = [
         process.env.POKEMON_API_URL_1,
@@ -28,7 +33,10 @@ export async function apiCallerFunction(request: HttpRequest, context: Invocatio
         process.env.POKEMON_API_URL_3
     ];
 
-    if (!urls.every(url => url)) {
+
+//FIXME: fare le tre chiamate separate. Ogni chiamata API è una funzione di business che va debuggata e testata a parte.
+//FIXME: eventuali funzioni di business vano inserite in un modulo separato dalle Azure Functions. 
+if (!urls.every(url => url)) {
         return {
             status: 500,
             body: 'Una o più URL delle API sono mancanti.'
@@ -54,6 +62,8 @@ export async function apiCallerFunction(request: HttpRequest, context: Invocatio
     }
 }
 
+
+// FIXME: Perchè è qui e non in index.ts? index.ts fa da gateway e è un problema di mantenibilità dle codice mescolare handlers e gateway
 app.http('apiCallerFunction', {
     methods: ['GET', 'POST'],
     authLevel: 'anonymous',

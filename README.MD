@@ -13,8 +13,8 @@ Prerequisiti
 
     Azure Functions Core Tools: Installare seguendo la guida ufficiale di Microsoft.
     Node.js: Versione LTS 14 o successiva.
-    Yarn: (Facoltativo)
-    TypeScript: Assicurati che sia installato globalmente.
+    Yarn: (Facoltativo) - CI SONO SIA IL FILE yarn.lock SIA package-lock.json. O si usa yarn o npm. Uno dei due va eliminato.
+    TypeScript: Assicurati che sia installato globalmente. INDICARE STRICT MODE A TRUE
 
 Configurazione
 

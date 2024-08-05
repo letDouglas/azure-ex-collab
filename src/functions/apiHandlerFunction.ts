@@ -43,7 +43,8 @@ export async function apiHandlerFunction(request: HttpRequest, context: Invocati
             })
         };
     } catch (error) {
-        context.log(`Errore: ${error.message}`);
+        const errorMessage = (error as Error).message;
+        context.log(`Errore: ${errorMessage}`);
         return {
             status: 500,
             body: 'Errore nel recupero dei dati dalle API.'

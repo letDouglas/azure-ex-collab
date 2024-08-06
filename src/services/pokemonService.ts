@@ -1,50 +1,74 @@
-/**
- * Effettua una chiamata HTTP all'URL configurato per ottenere i dati del Pokémon dalla prima API.
- * L'URL è recuperato dalla variabile d'ambiente `POKEMON_API_URL_1`.
- * 
- * @returns {Promise<any>} - I dati ottenuti dalla chiamata API.
- * @throws {Error} - Se l'URL non è configurato o se si verifica un errore nella chiamata API.
- */
-export async function fetchPokemonData1(): Promise<any> {
-    const url = process.env.POKEMON_API_URL_1;
-    if (!url) throw new Error('URL POKEMON_API_URL_1 non configurato');
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Errore nella chiamata API 1: ${response.statusText}`);
-    }
-    return response.json();
-}
+type data1 = {
+    name: string
+    weight: number
+};
+type data2 = {
+    name: string
+    weight: number
+};
+type data3 = {
+    name: string
+    weight: number
+};
 
-/**
- * Effettua una chiamata HTTP all'URL configurato per ottenere i dati del Pokémon dalla seconda API.
- * L'URL è recuperato dalla variabile d'ambiente `POKEMON_API_URL_2`.
- * 
- * @returns {Promise<any>} - I dati ottenuti dalla chiamata API.
- * @throws {Error} - Se l'URL non è configurato o se si verifica un errore nella chiamata API.
- */
-export async function fetchPokemonData2(): Promise<any> {
-    const url = process.env.POKEMON_API_URL_2;
-    if (!url) throw new Error('URL POKEMON_API_URL_2 non configurato');
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Errore nella chiamata API 2: ${response.statusText}`);
+const fetchPokemonData1 = async (): Promise<data1> => {
+    try {
+        const response = await fetch('https://api.https://pokeapi.co/api/v2/pokemon/squirtle.com/data1');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data: data1 = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data 1:', error);
+        throw error;
     }
-    return response.json();
-}
+};
 
-/**
- * Effettua una chiamata HTTP all'URL configurato per ottenere i dati del Pokémon dalla terza API.
- * L'URL è recuperato dalla variabile d'ambiente `POKEMON_API_URL_3`.
- * 
- * @returns {Promise<any>} - I dati ottenuti dalla chiamata API.
- * @throws {Error} - Se l'URL non è configurato o se si verifica un errore nella chiamata API.
- */
-export async function fetchPokemonData3(): Promise<any> {
-    const url = process.env.POKEMON_API_URL_3;
-    if (!url) throw new Error('URL POKEMON_API_URL_3 non configurato');
-    const response = await fetch(url);
-    if (!response.ok) {
-        throw new Error(`Errore nella chiamata API 3: ${response.statusText}`);
+// Funzione per la seconda chiamata API
+const fetchPokemonData2 = async (): Promise<data2> => {
+    try {
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon/bulbasaur');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data: data2 = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data 2:', error);
+        throw error;
     }
-    return response.json();
-}
+};
+
+// Funzione per la terza chiamata API
+const fetchPokemonData3 = async (): Promise<data3> => {
+    try {
+        const response = await fetch('https://pokeapi.co/api/v2/pokemon/charmander');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data: data3 = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error fetching data 3:', error);
+        throw error;
+    }
+};
+
+// Chiamata alle tre funzioni
+const fetchAllData = async () => {
+    try {
+        const data1 = await fetchPokemonData1();
+        console.log('Data 1:', data1);
+
+        const data2 = await fetchPokemonData2();
+        console.log('Data 2:', data2);
+
+        const data3 = await fetchPokemonData3();
+        console.log('Data 3:', data3);
+    } catch (error) {
+        console.error('Error fetching all data:', error);
+    }
+};
+
+fetchAllData();

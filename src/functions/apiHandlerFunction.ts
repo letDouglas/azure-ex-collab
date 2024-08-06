@@ -28,10 +28,7 @@ export async function apiHandlerFunction(request: HttpRequest, context: Invocati
 
         //FIXME: Le tre api che vengono chiamate non devono essere le stesse ma tre diverse api con strutture diverse.
         const filteredResponses = [data1, data2, data3].map(data => ({
-            nome: data.name,
-            tipo: data.types[0]?.type?.name,
-            peso: data.weight,
-            immagine: data.sprites.front_default
+           
         }));
 
         return {

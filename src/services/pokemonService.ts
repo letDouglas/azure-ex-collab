@@ -1,50 +1,38 @@
-/**
- * Effettua una chiamata HTTP all'URL configurato per ottenere i dati del Pokémon dalla prima API.
- * L'URL è recuperato dalla variabile d'ambiente `POKEMON_API_URL_1`.
- * 
- * @returns {Promise<any>} - I dati ottenuti dalla chiamata API.
- * @throws {Error} - Se l'URL non è configurato o se si verifica un errore nella chiamata API.
- */
-export async function fetchPokemonData1(): Promise<any> {
-    const url = process.env.POKEMON_API_URL_1;
+import { Pokemon, Location, Move } from './../utils/pokemonTypes';
+import { filterPokemon, filterLocation, filterMove } from './../utils/filters';
+
+export async function fetchRandomPokemon(): Promise<Pokemon> {
+    const randomId = Math.floor(Math.random() * 20) + 1;
+    const url = `${process.env.POKEMON_API_URL_1}${randomId}`;
     if (!url) throw new Error('URL POKEMON_API_URL_1 non configurato');
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`Errore nella chiamata API 1: ${response.statusText}`);
     }
-    return response.json();
+    const data = await response.json();
+    return filterPokemon(data);
 }
 
-/**
- * Effettua una chiamata HTTP all'URL configurato per ottenere i dati del Pokémon dalla seconda API.
- * L'URL è recuperato dalla variabile d'ambiente `POKEMON_API_URL_2`.
- * 
- * @returns {Promise<any>} - I dati ottenuti dalla chiamata API.
- * @throws {Error} - Se l'URL non è configurato o se si verifica un errore nella chiamata API.
- */
-export async function fetchPokemonData2(): Promise<any> {
-    const url = process.env.POKEMON_API_URL_2;
+export async function fetchRandomLocation(): Promise<Location> {
+    const randomId = Math.floor(Math.random() * 10) + 1;
+    const url = `${process.env.POKEMON_API_URL_2}${randomId}`;
     if (!url) throw new Error('URL POKEMON_API_URL_2 non configurato');
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`Errore nella chiamata API 2: ${response.statusText}`);
     }
-    return response.json();
+    const data = await response.json();
+    return filterLocation(data);
 }
 
-/**
- * Effettua una chiamata HTTP all'URL configurato per ottenere i dati del Pokémon dalla terza API.
- * L'URL è recuperato dalla variabile d'ambiente `POKEMON_API_URL_3`.
- * 
- * @returns {Promise<any>} - I dati ottenuti dalla chiamata API.
- * @throws {Error} - Se l'URL non è configurato o se si verifica un errore nella chiamata API.
- */
-export async function fetchPokemonData3(): Promise<any> {
-    const url = process.env.POKEMON_API_URL_3;
+export async function fetchRandomMove(): Promise<Move> {
+    const randomId = Math.floor(Math.random() * 10) + 1;
+    const url = `${process.env.POKEMON_API_URL_3}${randomId}`;
     if (!url) throw new Error('URL POKEMON_API_URL_3 non configurato');
     const response = await fetch(url);
     if (!response.ok) {
         throw new Error(`Errore nella chiamata API 3: ${response.statusText}`);
     }
-    return response.json();
+    const data = await response.json();
+    return filterMove(data);
 }

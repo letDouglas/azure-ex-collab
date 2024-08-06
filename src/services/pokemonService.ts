@@ -75,5 +75,5 @@ export const fetchPokemonData3= async (): Promise<TypeSpecies> => {
             url: data.URL,
             slot: data.slot,
     }
-    return Species
+    return Species;
 }

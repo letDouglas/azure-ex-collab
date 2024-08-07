@@ -1,5 +1,5 @@
 import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-import { fetchRandomMove } from './../services/fetchMove';
+import { fetchMove } from './../services/fetchMove';
 import { Move } from '../myFunctions-types/pokemonTypes';
 
 
@@ -8,7 +8,7 @@ export async function MoveDataHandler(request: HttpRequest, context: InvocationC
     context.log('Elaborazione della richiesta');
 
     try {
-        const dataMove = await fetchRandomMove();
+        const dataMove = await fetchMove(request.query.get('name'));
         const endTime = Date.now();
         const executionTime = endTime - startTime;
 

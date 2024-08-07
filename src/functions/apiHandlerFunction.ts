@@ -1,50 +1,39 @@
 import { HttpRequest, HttpResponseInit, InvocationContext } from '@azure/functions';
-import { fetchPokemonData1, fetchPokemonData2, fetchPokemonData3 } from './../services/pokemonService'; 
+import { fetchPokemonData1, fetchPokemonData2, fetchPokemonData3 } from './../services/pokemonService';
+import { TypeBattleArmor, TypePokemon, TypeSpecies } from '../lib/type';
 
-/**
- * Handler per la funzione API che gestisce le richieste HTTP.
- * Effettua chiamate a tre API per ottenere dati sui Pokémon, filtra e restituisce i risultati.
- * 
- * @param {HttpRequest} request - Oggetto della richiesta HTTP.
- * @param {InvocationContext} context - Contesto di invocazione della funzione.
- * @returns {Promise<HttpResponseInit>} - Oggetto della risposta HTTP.
- */
-
-export async function apiHandlerFunction(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
-    const startTime = Date.now();  
-    context.log('Elaborazione della richiesta');
-
+export const getPokemonDataFromAPI1 = async (context: InvocationContext): Promise<TypePokemon> => {
     try {
-        const [data1, data2, data3] = await Promise.all([
-            fetchPokemonData1(),
-            fetchPokemonData2(),
-            fetchPokemonData3()
-        ]);
-        
-        const endTime = Date.now(); 
-
-        const executionTime = endTime - startTime;
-        context.log(`Tempo di esecuzione: ${executionTime} ms`);  
-
-        //FIXME: Le tre api che vengono chiamate non devono essere le stesse ma tre diverse api con strutture diverse.
-        const filteredResponses = [data1, data2, data3].map(data => ({
-           
-        }));
-
-        return {
-            status: 200,
-            body: JSON.stringify({
-                Risposta1: filteredResponses[0],
-                Risposta2: filteredResponses[1],
-                Risposta3: filteredResponses[2]
-            })
-        };
+        const data1 = await fetchPokemonData1();
+        context.log('Dati API1 recuperati con successo');
+        return data1;
     } catch (error) {
         const errorMessage = (error as Error).message;
-        context.log(`Errore: ${errorMessage}`);
-        return {
-            status: 500,
-            body: 'Errore nel recupero dei dati dalle API.'
-        };
+        context.log(`Errore nella chiamata API1: ${errorMessage}`);
+        throw new Error('Errore nel recupero dei dati dall\'API1.');
+    }
+}
+
+export const getPokemonDataFromAPI2 = async (context: InvocationContext): Promise<TypeBattleArmor> => {
+    try {
+        const data2 = await fetchPokemonData2();
+        context.log('Dati API2 recuperati con successo');
+        return data2;
+    } catch (error) {
+        const errorMessage = (error as Error).message;
+        context.log(`Errore nella chiamata API2: ${errorMessage}`);
+        throw new Error('Errore nel recupero dei dati dall\'API2.');
+    }
+}
+
+export const getPokemonDataFromAPI3 = async (context: InvocationContext): Promise<TypeSpecies> => {
+    try {
+        const data3 = await fetchPokemonData3();
+        context.log('Dati API3 recuperati con successo');
+        return data3;
+    } catch (error) {
+        const errorMessage = (error as Error).message;
+        context.log(`Errore nella chiamata API3: ${errorMessage}`);
+        throw new Error('Errore nel recupero dei dati dall\'API3.');
     }
 }

@@ -1,5 +1,4 @@
-import { Pokemon, Location, Move } from './pokemonTypes';
-
+import { Pokemon, Location, Move } from '../myFunctions-types/pokemonTypes';
 
 export function filterPokemon(pokemon: Pokemon) {
     return {

@@ -2,7 +2,6 @@ import { app } from '@azure/functions';
 import { PokemonDataHandler } from './functions/PokemonDataHandler';
 import { LocationDataHandler } from './functions/LocationDataHandler';
 import { MoveDataHandler } from './functions/MoveDataHandler';
-import { AllDataHandler } from './functions/AllDataHandler';
 
 app.setup({
     enableHttpStream: true,

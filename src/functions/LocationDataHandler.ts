@@ -1,5 +1,5 @@
 import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-import { fetchRandomLocation } from './../services/fetchLocation';
+import { fetchLocation } from './../services/fetchLocation';
 import { Location } from '../myFunctions-types/pokemonTypes';
 
 export async function LocationDataHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
@@ -7,7 +7,7 @@ export async function LocationDataHandler(request: HttpRequest, context: Invocat
     context.log('Elaborazione della richiesta');
 
     try {
-        const dataLocation = await fetchRandomLocation();
+        const dataLocation = await fetchLocation(request.query.get('name'));
         const endTime = Date.now();
         const executionTime = endTime - startTime;
 

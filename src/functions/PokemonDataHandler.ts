@@ -1,5 +1,5 @@
 import { HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
-import { fetchRandomPokemon } from './../services/fetchPokemon';
+import { fetchPokemon } from './../services/fetchPokemon';
 import { Pokemon } from '../myFunctions-types/pokemonTypes';
 
 export async function PokemonDataHandler(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
@@ -7,10 +7,7 @@ export async function PokemonDataHandler(request: HttpRequest, context: Invocati
     context.log('Elaborazione della richiesta');
 
     try {
-
-        // TODO: leggere query param: name dalla request e passarlo alla funzione fetchRandomPokemon. Se il parametro non è presente, utilizzare un valore random cosi' com'e' altrimenti utilizzare il valore passato come parametro
-
-        const dataPokemon = await fetchRandomPokemon();
+        const dataPokemon = await fetchPokemon(request.query.get('name'));
         const endTime = Date.now();
         const executionTime = endTime - startTime;
 
